@@ -1,6 +1,11 @@
 //Function to determine circle size
-function circleSize(depth) {
-    return depth * 1000;
+function circleSize(mag) {
+    return mag * 30000;
+}
+
+//Function to determine circle size
+function circleColor(depth) {
+    return "red";
 }
 
 // Perform a GET request to the query URL
@@ -15,9 +20,9 @@ d3.json(url, function(data) {
         earthquakes.push(
             L.circle([lat,lng], {
                 stroke: false,
-                color: "black",
-                fillColor: "white",
-                radius: circleSize(x.geometry.coordinates[2])
+                fillOpacity: 0.8,
+                fillColor: circleColor(x.geometry.coordinates[2]),
+                radius: circleSize(x.properties.mag)
             }).bindPopup(
                 "<h3>" + x.properties.place +
       "</h3><hr><p>" + new Date(x.properties.time) + "</p>"
