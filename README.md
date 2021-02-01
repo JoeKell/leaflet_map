@@ -21,3 +21,18 @@ These are the tools, techniques, and resources used in this project.
 ### About the Data
 
 The earthquake data comes from the 'All Earthquakes from the Past 7 Days' data set on the [USGS GeoJSON Feed](http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php) page. The tectonic plate borders geoJSON comes from <https://github.com/fraxen/tectonicplates>.
+
+## Project Steps
+
+### Step 1: Static Page Elements
+The page is quite simple, 1 div with the map in it. Everything else is javascript.
+
+### Step 2: Map Code
+
+  ![Map Code](FinalImages/MapCode.PNG)
+
+  This is the code at the root of the map, passing in the center coordinates and initial zoom value as well as setting which layers show up on page load.
+
+  ![Zoomed View](FinalImages/PlatesAndQuakes.PNG)
+
+  When zooming out further, it is possible to fully appreciate the vastness of the tectonic plates and how many earthquakes happen in 1 week.
