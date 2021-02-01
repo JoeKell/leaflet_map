@@ -25,8 +25,9 @@ d3.json(url, function(data) {
                 radius: circleSize(x.properties.mag)
             }).bindPopup(
                 "<h3>" + x.properties.place +
-      "</h3><hr><p>" + new Date(x.properties.time) + "</p>"
-            )
+      "</h3><hr><p>" + new Date(x.properties.time) + "</p>", {
+                maxWidth : 560
+            })
         )
     });
 
