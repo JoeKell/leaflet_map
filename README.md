@@ -31,8 +31,32 @@ The page is quite simple, 1 div with the map in it. Everything else is javascrip
 
   ![Map Code](FinalImages/MapCode.PNG)
 
-  This is the code at the root of the map, passing in the center coordinates and initial zoom value as well as setting which layers show up on page load.
+This is the code at the root of the map, passing in the center coordinates and initial zoom value as well as setting which layers show up on page load.
 
   ![Zoomed View](FinalImages/PlatesAndQuakes.PNG)
 
-  When zooming out further, it is possible to fully appreciate the vastness of the tectonic plates and how many earthquakes happen in 1 week.
+When zooming out further, it is possible to fully appreciate the vastness of the tectonic plates and how many earthquakes happen in 1 week.
+
+### Step 3: Control 
+
+With a control users are able to interact with the map and view it in the way that suits their needs.
+
+  ![Control](FinalImages/Control.PNG)
+
+The code for this is slightly cleaner when creating each layer as a variable. Each of the modes (dark, street, etc.) is a variable and then those variables are stored in baseMaps. The earthquakes and plate borders are stored in overlayMaps.
+
+  ![Control Code](FinalImages/ControlCode.PNG)
+
+### Step 4: Earthquakes 
+
+The plotting of the earthquakes on the map needed to show 4 pieces of information (more when clicked): latitude, longitude, magnitude, and depth. Lat and Long are represented by where the center of the circle is. The color shows the depth and the size of the marker reflects the magnitude of the earthquake
+
+  ![Earthquake](FinalImages/EarthquakeMarkerCode.PNG)
+
+To determine which color a circle will be we use a switch statement and a basic gradient of colors. The size of the circle is a linear relation to the magnitude of the earthquake.
+
+  ![Earthquake Functions](FinalImages/EarthquakeMarkerFunctionCode.PNG)
+
+
+
+
