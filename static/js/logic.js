@@ -1,9 +1,32 @@
-  // Perform a GET request to the query URL
+//Function to determine circle size
+function circleSize(depth) {
+    return depth * 1000;
+}
+
+// Perform a GET request to the query URL
 d3.json(url, function(data) {
 
-    var earthquakeData = data.features; 
-    var earthquakes = L.geoJSON(earthquakeData);
+    // Create a circle for each earthquake in the dataset
+    var earthquakes = []
+    data.features.forEach(x => {
+        var lat=x.geometry.coordinates[1]
+        var lng=x.geometry.coordinates[0]
 
+        earthquakes.push(
+            L.circle([lat,lng], {
+                stroke: false,
+                color: "black",
+                fillColor: "white",
+                radius: circleSize(x.geometry.coordinates[2])
+            }).bindPopup(
+                "<h3>" + x.properties.place +
+      "</h3><hr><p>" + new Date(x.properties.time) + "</p>"
+            )
+        )
+    });
+
+    // Create a layer out of the circles
+    var earthquakeLayer = L.layerGroup(earthquakes);
 
     // Define layers
     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -52,14 +75,14 @@ d3.json(url, function(data) {
 
     // Create overlay object to hold our overlay layer
     var overlayMaps = {
-        Earthquakes: earthquakes
+        Earthquakes: earthquakeLayer
     };
 
     // Creating map object
     var myMap = L.map("map", {
         center: [39.0522, -110.2437],
         zoom: 6,
-        layers: [darkmap, earthquakes]
+        layers: [darkmap, earthquakeLayer]
     });
 
     // Create a layer control
