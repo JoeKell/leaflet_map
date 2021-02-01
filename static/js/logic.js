@@ -108,7 +108,7 @@ d3.json(url, function(data) {
     // Creating map object
     var myMap = L.map("map", {
         center: [39.0522, -110.2437],
-        zoom: 6,
+        zoom: 5,
         layers: [darkmap, earthquakeLayer]
     });
 
@@ -116,5 +116,27 @@ d3.json(url, function(data) {
     L.control.layers(baseMaps, overlayMaps, {
         collapsed: false
     }).addTo(myMap);
+
+    // Create a legend to display information about our map
+    var info = L.control({
+        position: "bottomright"
+    });
+    // When the layer control is added, insert a div with the class of "legend"
+    info.onAdd = function() {
+        var div = L.DomUtil.create("div", "legend");
+        div.innerHTML=[
+            "<h2>Depth (km)</h2>",
+            "<p class='l10'>Less than 10</p>",
+            "<p class='l30'>Between 10 and 30</p>",
+            "<p class='l50'>Between 30 and 50</p>",
+            "<p class='l70'>Between 50 and 70</p>",
+            "<p class='l90'>Between 70 and 90</p>",
+            "<p class='g90'>Greater than 90</p>"
+          ].join("");
+
+        return div;
+    };
+    // Add the info legend to the map
+    info.addTo(myMap);
 
   });
