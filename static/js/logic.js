@@ -5,7 +5,28 @@ function circleSize(mag) {
 
 //Function to determine circle size
 function circleColor(depth) {
-    return "red";
+    var color="#FFEDA0";
+    switch(true) {
+        case (depth < 10):
+            color="#FFEDA0";
+            break;
+        case (depth < 30):
+            color="#FEB24C";
+            break;
+        case (depth < 50):
+            color="#FD8D3C";
+            break;
+        case (depth < 70):
+            color="#E31A1C";
+            break;
+        case (depth < 90):
+            color="#BD0026";
+            break;
+        case (depth >= 90):
+            color="#800026";
+            break;
+    }
+    return color;
 }
 
 // Perform a GET request to the query URL
@@ -14,8 +35,8 @@ d3.json(url, function(data) {
     // Create a circle for each earthquake in the dataset
     var earthquakes = []
     data.features.forEach(x => {
-        var lat=x.geometry.coordinates[1]
-        var lng=x.geometry.coordinates[0]
+        var lat=x.geometry.coordinates[1];
+        var lng=x.geometry.coordinates[0];
 
         earthquakes.push(
             L.circle([lat,lng], {
