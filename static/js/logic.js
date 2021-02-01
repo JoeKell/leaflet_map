@@ -94,49 +94,56 @@ d3.json(url, function(data) {
 
     // Define a baseMaps object to hold our base layers
     var baseMaps = {
-        "Street Map": streetmap,
         "Dark Map": darkmap,
         "Outdoors Map": outmap,
-        "Satellite Map": satmap
+        "Satellite Map": satmap,
+        "Street Map": streetmap
     };
 
-    // Create overlay object to hold our overlay layer
-    var overlayMaps = {
-        Earthquakes: earthquakeLayer
-    };
+    // Grabbing the geoJSON data for the tectonic plates
+    d3.json(url2, function(data) {
+        // Creating a GeoJSON layer with the retrieved data
+        var plates = L.geoJson(data);
 
-    // Creating map object
-    var myMap = L.map("map", {
-        center: [39.0522, -110.2437],
-        zoom: 5,
-        layers: [darkmap, earthquakeLayer]
-    });
 
-    // Create a layer control
-    L.control.layers(baseMaps, overlayMaps, {
-        collapsed: false
-    }).addTo(myMap);
+        // Create overlay object to hold our overlay layer
+        var overlayMaps = {
+            Earthquakes: earthquakeLayer,
+            "Tectonic Plates": plates
+        };
 
-    // Create a legend to display information about our map
-    var info = L.control({
-        position: "bottomright"
-    });
-    // When the layer control is added, insert a div with the class of "legend"
-    info.onAdd = function() {
-        var div = L.DomUtil.create("div", "legend");
-        div.innerHTML=[
-            "<h2>Depth (km)</h2>",
-            "<p class='l10'>Less than 10</p>",
-            "<p class='l30'>Between 10 and 30</p>",
-            "<p class='l50'>Between 30 and 50</p>",
-            "<p class='l70'>Between 50 and 70</p>",
-            "<p class='l90'>Between 70 and 90</p>",
-            "<p class='g90'>Greater than 90</p>"
-          ].join("");
+        // Creating map object
+        var myMap = L.map("map", {
+            center: [39.0522, -110.2437],
+            zoom: 5,
+            layers: [darkmap, earthquakeLayer, plates]
+        });
 
-        return div;
-    };
-    // Add the info legend to the map
-    info.addTo(myMap);
+        // Create a layer control
+        L.control.layers(baseMaps, overlayMaps, {
+            collapsed: false
+        }).addTo(myMap);
 
-  });
+        // Create a legend to display information about our map
+        var info = L.control({
+            position: "bottomright"
+        });
+        // When the layer control is added, insert a div with the class of "legend"
+        info.onAdd = function() {
+            var div = L.DomUtil.create("div", "legend");
+            div.innerHTML=[
+                "<h2>Depth (km)</h2>",
+                "<p class='l10'>Less than 10</p>",
+                "<p class='l30'>Between 10 and 30</p>",
+                "<p class='l50'>Between 30 and 50</p>",
+                "<p class='l70'>Between 50 and 70</p>",
+                "<p class='l90'>Between 70 and 90</p>",
+                "<p class='g90'>Greater than 90</p>"
+            ].join("");
+
+            return div;
+        };
+        // Add the info legend to the map
+        info.addTo(myMap);
+    })
+});
